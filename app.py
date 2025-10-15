@@ -12,7 +12,7 @@ def correct_text(input_text):
         line = line.strip()
         line = re.sub(r'([!?.…])\\s+', r'\\1', line)
         line = re.sub(r'\\s+([!?.…])', r'\\1', line)
-        line = re.sub(r'「\\)。」', r'」', line)
+        line = re.sub(r'「。', r'」', line)
         line = line.replace(' ', '')
         cleaned_lines.append(line)
     indented_lines = []
@@ -71,4 +71,5 @@ if st.button("修正実行", key="process_button"):
     else:
 
         st.error("テキストを入力またはファイルをアップロードしてください。")
+
 
