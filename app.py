@@ -3,54 +3,31 @@ import re
 
 # 文章修正関数
 def correct_text(input_text):
+    # 1. すべての空行を除去
     lines = input_text.split('\n')
     lines = [line for line in lines if line.strip() != '']
-    cleaned_lines = []
-    for line in lines:
-        line = line.replace('　', ' ')
-        line = re.sub(r'\\s+', ' ', line)
-        line = line.strip()
-        line = re.sub(r'([!?.…])\\s+', r'\\1', line)
-        line = re.sub(r'\\s+([!?.…])', r'\\1', line)
-        line = re.sub(r'「。', r'」', line)
-        line = line.replace(' ', '')
-        cleaned_lines.append(line)
+
+    # 2. すべての空白を除去（全角・半角スペース）
+    cleaned_lines = [line.replace(' ', '').replace('　', '') for line in lines]
+
+    # 3. 会話文以外の行に全角スペース（インデント）を追加
     indented_lines = []
     for line in cleaned_lines:
         if line.startswith('「'):
-            indented_lines.append(line)
+            indented_lines.append(line)  # 会話文はそのまま
         else:
-            indented_lines.append('　' + line)
+            indented_lines.append('　' + line)  # それ以外に全角スペース
+
     return '\n'.join(indented_lines)
 
-def correct_text(input_text):
-    lines = input_text.split('\\n')
-    lines = [line for line in lines if line.strip() != '']
-    cleaned_lines = []
-    for line in lines:
-        line = line.replace('　', ' ')
-        line = re.sub(r'\\s+', ' ', line)
-        line = line.strip()
-        line = re.sub(r'([!?.…])\\s+', r'\\1', line)
-        line = re.sub(r'\\s+([!?.…])', r'\\1', line)
-        line = re.sub(r'「。', r'」', line)
-        line = line.replace(' ', '')
-        cleaned_lines.append(line)
-    indented_lines = []
-    for line in cleaned_lines:
-        if line.startswith('「'):
-            indented_lines.append(line)
-        else:
-            indented_lines.append('　' + line)
-    return '\\n'.join(indented_lines)
-
-st.set_page_config(page_title="⭐", page_icon="🚀")
-st.title("🚀")
+# Streamlitアプリの定義
+st.set_page_config(page_title="🚀", page_icon="⭐")
+st.title("テキスト修正アプリ 🚀")
 
 input_method = st.radio("入力方法を選択してください:", ("ファイルアップロード", "テキスト入力"))
 input_text = ""
 if input_method == "テキスト入力":
-    input_text = st.text_area("ここにテキストを入力してください:", height=200, placeholder="生存と繁殖に代わり、真実と好奇心の追求が新本能になる。")
+    input_text = st.text_area("ここにテキストを入力してください:", height=200, placeholder="生存と繁殖に代わり、真実と好奇心の追求が新本能になる。\n\n「こんにちは」\n   こんにちは")
 else:
     uploaded_file = st.file_uploader("テキストファイル（例: 原稿.txt）をアップロード", type=["txt"])
     if uploaded_file is not None:
@@ -69,8 +46,4 @@ if st.button("修正実行", key="process_button"):
             mime="text/plain"
         )
     else:
-
         st.error("テキストを入力またはファイルをアップロードしてください。")
-
-
-
