@@ -1,16 +1,6 @@
 import streamlit as st
 import re
 
-# ngrokオートトークンの設定
-!ngrok authtoken 343JDQn8MrvVchbsZSyVeqyQa0H_2zvUjYMcoqCxNw8io8bCj
-
-# ngrokの既存トンネルを強制終了
-print("既存のngrokトンネルを終了中...")
-ngrok.kill()
-time.sleep(2)  # トンネル終了を待つ
-!pkill ngrok
-time.sleep(1)
-
 # 文章修正関数
 def correct_text(input_text):
     lines = input_text.split('\n')
@@ -85,4 +75,5 @@ if st.button("修正実行", key="process_button"):
             mime="text/plain"
         )
     else:
+
         st.error("テキストを入力またはファイルをアップロードしてください。")
