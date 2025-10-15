@@ -22,18 +22,18 @@ def correct_text(input_text):
 
 # Streamlitアプリの定義
 st.set_page_config(page_title="🚀", page_icon="⭐")
-st.title("テキスト修正アプリ 🚀")
+st.title("🚀")
 
 input_method = st.radio("入力方法を選択してください:", ("ファイルアップロード", "テキスト入力"))
 input_text = ""
 if input_method == "テキスト入力":
-    input_text = st.text_area("ここにテキストを入力してください:", height=200, placeholder="生存と繁殖に代わり、真実と好奇心の追求が新本能になる。\n\n「こんにちは」\n   こんにちは")
+    input_text = st.text_area("ここにテキストを入力してください:", height=200, placeholder="生存と繁殖に代わり、真実と好奇心の追求が新本能になる。")
 else:
-    uploaded_file = st.file_uploader("テキストファイル（例: 原稿.txt）をアップロード", type=["txt"])
+    uploaded_file = st.file_uploader("テキストファイルをアップロード", type=["txt"])
     if uploaded_file is not None:
         input_text = uploaded_file.read().decode("utf-8")
 
-if st.button("修正実行", key="process_button"):
+if st.button("🚀🚀🚀🚀🚀", key="process_button"):
     if input_text:
         with st.spinner("処理中..."):
             corrected_text = correct_text(input_text)
@@ -47,3 +47,4 @@ if st.button("修正実行", key="process_button"):
         )
     else:
         st.error("テキストを入力またはファイルをアップロードしてください。")
+
