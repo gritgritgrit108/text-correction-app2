@@ -23,12 +23,6 @@ def correct_text(input_text):
             indented_lines.append('　' + line)
     return '\n'.join(indented_lines)
 
-# Streamlitアプリの定義
-with open("app.py", "w") as f:
-    f.write("""
-import streamlit as st
-import re
-
 def correct_text(input_text):
     lines = input_text.split('\\n')
     lines = [line for line in lines if line.strip() != '']
@@ -77,3 +71,4 @@ if st.button("修正実行", key="process_button"):
     else:
 
         st.error("テキストを入力またはファイルをアップロードしてください。")
+
